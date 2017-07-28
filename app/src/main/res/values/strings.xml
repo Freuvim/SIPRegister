@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SIPRegister</string>
+    <string name="display_service">Iniciar Serviço</string>
+    <string name="display_password">Password:</string>
+    <string name="display_user">Username:</string>
+    <string name="display_domain">Domain:</string>
+</resources>
