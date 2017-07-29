@@ -60,6 +60,7 @@ public class SIPRegister {
                 public void onRegistrationFailed(String s, int i, String s1) {
                     Log.d(TAG, "TESTE: erro ao registrar - " + s + s1);
                     setSipResult(false);
+
                 }
             });
 
