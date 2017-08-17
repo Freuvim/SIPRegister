@@ -1,4 +1,4 @@
-package io.github.freuvim.sipregister.Database;
+package io.github.freuvim.sipregister.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

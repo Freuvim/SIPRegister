@@ -19,14 +19,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="io.github.freuvim.sipregister.Activitys.MainActivity">
+        <activity android:name="io.github.freuvim.sipregister.activitys.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <receiver android:name="io.github.freuvim.sipregister.Receivers.BootCompletedIntentReceiver"
+        <receiver android:name="io.github.freuvim.sipregister.receivers.BootCompletedIntentReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -41,7 +41,7 @@
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
-        <service android:name="io.github.freuvim.sipregister.Services.BackgroundService" />
+        <service android:name="io.github.freuvim.sipregister.services.BackgroundService" />
     </application>
 
 </manifest>

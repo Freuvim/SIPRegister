@@ -6,7 +6,7 @@
     android:layout_margin="12dp"
     android:orientation="vertical"
     android:weightSum="1"
-    tools:context="io.github.freuvim.sipregister.Activitys.MainActivity">
+    tools:context="io.github.freuvim.sipregister.activitys.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +27,6 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1234"
             android:inputType="textPassword" />
 
     </LinearLayout>

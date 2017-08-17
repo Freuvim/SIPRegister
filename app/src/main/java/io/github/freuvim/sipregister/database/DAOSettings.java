@@ -1,4 +1,4 @@
-package io.github.freuvim.sipregister.Database;
+package io.github.freuvim.sipregister.database;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +8,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
-import static android.content.ContentValues.TAG;
 
 public class DAOSettings {
     private SQLiteDatabase database;

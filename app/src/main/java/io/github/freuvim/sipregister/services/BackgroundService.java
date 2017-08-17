@@ -1,9 +1,10 @@
-package io.github.freuvim.sipregister.Services;
+package io.github.freuvim.sipregister.services;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Binder;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
@@ -16,9 +17,9 @@ import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import io.github.freuvim.sipregister.Database.BeanSettings;
-import io.github.freuvim.sipregister.Database.DAOSettings;
-import io.github.freuvim.sipregister.Listeners.TeleListener;
+import io.github.freuvim.sipregister.database.BeanSettings;
+import io.github.freuvim.sipregister.database.DAOSettings;
+import io.github.freuvim.sipregister.listeners.TeleListener;
 
 import static android.content.ContentValues.TAG;
 

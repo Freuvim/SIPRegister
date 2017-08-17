@@ -1,4 +1,4 @@
-package io.github.freuvim.sipregister.Activitys;
+package io.github.freuvim.sipregister.activitys;
 
 import android.Manifest;
 import android.content.Context;
@@ -14,7 +14,7 @@ import android.widget.EditText;
 
 import io.github.freuvim.sipregister.R;
 import io.github.freuvim.sipregister.SIPRegister;
-import io.github.freuvim.sipregister.Services.BackgroundService;
+import io.github.freuvim.sipregister.services.BackgroundService;
 import test.jinesh.easypermissionslib.EasyPermission;
 
 import static android.content.ContentValues.TAG;
@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity implements EasyPermission.On
                     SIPRegister sipRegister = new SIPRegister(MainActivity.this);
                     sipRegister.registerSIP(imsi, etPassword.getText().toString());
                     if (sipRegister.getSipResult()){
-                        /*MainActivity.this.startService(serviceIntent);
-                        Log.d(TAG, "TESTE: inicou serviço");*/
+                        MainActivity.this.startService(serviceIntent);
+                        Log.d(TAG, "TESTE: inicou serviço");
                     }
                 } else {
                     Log.d(TAG, "TESTE: permissões não concedidas ou senha vazia");

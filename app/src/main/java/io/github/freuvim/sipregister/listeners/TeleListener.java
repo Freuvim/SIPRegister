@@ -1,12 +1,11 @@
-package io.github.freuvim.sipregister.Listeners;
+package io.github.freuvim.sipregister.listeners;
 
 import android.content.Context;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
-import android.util.Log;
-import io.github.freuvim.sipregister.Database.BeanSettings;
-import io.github.freuvim.sipregister.Database.DAOSettings;
-import static android.content.ContentValues.TAG;
+
+import io.github.freuvim.sipregister.database.BeanSettings;
+import io.github.freuvim.sipregister.database.DAOSettings;
 
 public class TeleListener extends PhoneStateListener {
 

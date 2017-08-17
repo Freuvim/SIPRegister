@@ -1,4 +1,4 @@
-package io.github.freuvim.sipregister.Listeners;
+package io.github.freuvim.sipregister.listeners;
 
 import android.net.sip.SipRegistrationListener;
 import android.util.Log;
