@@ -99,20 +99,26 @@ public class SIPRegister {
             SipSession.Listener sessionListener = new SipSession.Listener() {
                 @Override
                 public void onCalling(SipSession session) {
-                    String callId = session.getCallId();
-                    Log.d(TAG, "onCalling. call ID: " + callId);
+                    super.onCalling(session);
+                    Log.d(TAG, "onCalling. call ID: " + session.getCallId());
+                }
+
+                @Override
+                public void onCallEnded(SipSession session) {
+                    super.onCallEnded(session);
+                    Log.d(TAG, "onCallEnded. call ID: " + session.getCallId());
                 }
 
                 @Override
                 public void onRegistering(SipSession session) {
                     super.onRegistering(session);
-                    Log.d(TAG, "TESTE: registrando");
+                    Log.d(TAG, "TESTE: registrando" + session.getCallId());
                 }
 
                 @Override
                 public void onRegistrationDone(SipSession session, int duration) {
                     super.onRegistrationDone(session, duration);
-                    Log.d(TAG, "TESTE: registrado");
+                    Log.d(TAG, "TESTE: registrado " + session.getCallId());
                     setSipResult(true);
                 }
 
