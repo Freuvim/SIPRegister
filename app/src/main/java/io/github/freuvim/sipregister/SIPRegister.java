@@ -8,6 +8,7 @@ import android.net.sip.SipException;
 import android.net.sip.SipManager;
 import android.net.sip.SipProfile;
 import android.net.sip.SipRegistrationListener;
+import android.net.sip.SipSession;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -56,25 +57,6 @@ public class SIPRegister {
             //Bundle b = new Bundle();
             //b.putInt("gsm", 123);
             //intent.putExtras(b);
-
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(ctx, 0, intent, Intent.FILL_IN_DATA);
-            mSipManager.open(mSipProfile, pendingIntent, null);
-            SipAudioCall.Listener clistener = new SipAudioCall.Listener(){
-                @Override
-                public void onCalling(SipAudioCall call) {
-                    Log.d(TAG, "TESTE: chamando");
-                }
-
-                @Override
-                public void onCallEnded(SipAudioCall call) {
-                    Toast.makeText(ctx, "Chamada encerrada", Toast.LENGTH_SHORT).show();
-                    //downloadAndSaveFile()
-                }
-
-            };
-
-            String sipAddress ="sip:anupam90@sip2sip.info";
-            mSipManager.makeAudioCall(mSipProfile.getUriString(), sipAddress, clistener, 30);
             mSipManager.setRegistrationListener(mSipProfile.getUriString(), new SipRegistrationListener() {
                 @Override
                 public void onRegistering(String s) {
@@ -93,6 +75,59 @@ public class SIPRegister {
                     setSipResult(false);
                 }
             });
+
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(ctx, 0, intent, Intent.FILL_IN_DATA);
+            mSipManager.open(mSipProfile, pendingIntent, null);
+            SipAudioCall.Listener clistener = new SipAudioCall.Listener() {
+                @Override
+                public void onCalling(SipAudioCall call) {
+                    Log.d(TAG, "TESTE: chamando");
+                }
+
+                @Override
+                public void onCallEnded(SipAudioCall call) {
+                    Toast.makeText(ctx, "Display Name: " + call.getPeerProfile().getDisplayName()
+                            + "\n Uri String" + call.getPeerProfile().getUriString(), Toast.LENGTH_SHORT).show();
+                    call.getPeerProfile().getDisplayName();
+                    //downloadAndSaveFile()
+                }
+
+            };
+            SipAudioCall testCall = new SipAudioCall(ctx, mSipProfile);
+            testCall.setListener(clistener);
+            SipSession.Listener sessionListener = new SipSession.Listener() {
+                @Override
+                public void onCalling(SipSession session) {
+                    String callId = session.getCallId();
+                    Log.d(TAG, "onCalling. call ID: " + callId);
+                }
+
+                @Override
+                public void onRegistering(SipSession session) {
+                    super.onRegistering(session);
+                    Log.d(TAG, "TESTE: registrando");
+                }
+
+                @Override
+                public void onRegistrationDone(SipSession session, int duration) {
+                    super.onRegistrationDone(session, duration);
+                    Log.d(TAG, "TESTE: registrado");
+                    setSipResult(true);
+                }
+
+                @Override
+                public void onRegistrationFailed(SipSession session, int errorCode, String errorMessage) {
+                    super.onRegistrationFailed(session, errorCode, errorMessage);
+                    Log.d(TAG, "TESTE: não registrado " + errorMessage);
+                    setSipResult(false);
+                }
+            };
+            SipSession ss = mSipManager.createSipSession(mSipProfile, sessionListener);
+            String sipAddress = "sip:anupam90@sip2sip.info";
+            mSipManager.makeAudioCall(mSipProfile.getUriString(), sipAddress, clistener, 30);
+            Log.d(TAG, "iD: " + ss.getCallId());
+
 
         } catch (SipException se) {
             Log.d(TAG, "TESTE: " + se);
