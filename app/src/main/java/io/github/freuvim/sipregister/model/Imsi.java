@@ -1,6 +1,8 @@
 package io.github.freuvim.sipregister.model;
 
-public class Imsi {
+import java.io.Serializable;
+
+public class Imsi implements Serializable{
 
     private long imsi;
     private int lat;

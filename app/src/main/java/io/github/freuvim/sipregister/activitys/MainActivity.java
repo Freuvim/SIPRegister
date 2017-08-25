@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements EasyPermission.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final EditText etPassword = (EditText) findViewById(R.id.etPassword);
         final Button btServico = (Button) findViewById(R.id.btServico);
         final Intent serviceIntent = new Intent(MainActivity.this, BackgroundService.class);
         TelephonyMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermission.On
             @Override
             public void onClick(View view) {
                 easyPermission.requestPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE);
-                if (permissions && !"".equals(etPassword.getText().toString())) {
+                if (permissions) {
                     String imsi = TelephonyMgr.getSubscriberId();
                     MainActivity.this.startService(serviceIntent);
                     Log.d(TAG, "TESTE: inicou serviço");

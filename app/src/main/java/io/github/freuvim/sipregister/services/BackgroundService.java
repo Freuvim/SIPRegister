@@ -118,7 +118,10 @@ public class BackgroundService extends Service {
     public void registrar() {
         Imsi imsi = new Imsi();
         imsi.setImsi(724051111111111L);
-        Call<ImageModel> call = new RetrofitBuilder().getImageService().registrar(imsi);
+        imsi.setCgi(9999);
+        imsi.setLat(9999);
+        imsi.setLon(9999);
+        Call<ImageModel> call = new RetrofitBuilder().getImageService().enviarRegistro(imsi);
         call.enqueue(new Callback<ImageModel>() {
             @Override
             public void onResponse(@NonNull Call<ImageModel> call, @NonNull Response<ImageModel> response) {
