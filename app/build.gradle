@@ -26,6 +26,9 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
     compile 'com.github.jineshfrancs:EasyPermission:2.0.2'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    compile 'com.squareup.retrofit2:converter-jackson:2.3.0'
+    compile 'com.jakewharton:butterknife:8.7.0'
+    compile 'com.jakewharton:butterknife-compiler:8.7.0'
     testCompile 'junit:junit:4.12'
-    compile project(':commons-net-3.6')
 }

@@ -12,7 +12,6 @@ public class BootCompletedIntentReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
             Intent serviceIntent = new Intent(Intent.ACTION_MAIN);
             serviceIntent.setClass(context, BackgroundService.class);
-
             context.startService(serviceIntent);
     }
 }

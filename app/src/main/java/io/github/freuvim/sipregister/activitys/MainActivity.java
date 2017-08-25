@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import io.github.freuvim.sipregister.R;
-import io.github.freuvim.sipregister.SIPRegister;
 import io.github.freuvim.sipregister.services.BackgroundService;
 import test.jinesh.easypermissionslib.EasyPermission;
 
@@ -36,21 +35,16 @@ public class MainActivity extends AppCompatActivity implements EasyPermission.On
         btServico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               easyPermission.requestPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE);
-                if (permissions && !etPassword.getText().toString().equals("")) {
+                easyPermission.requestPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE);
+                if (permissions && !"".equals(etPassword.getText().toString())) {
                     String imsi = TelephonyMgr.getSubscriberId();
-                    SIPRegister sipRegister = new SIPRegister(MainActivity.this);
-                    sipRegister.registerSIP(imsi, etPassword.getText().toString());
-                    if (sipRegister.getSipResult()){
-                        MainActivity.this.startService(serviceIntent);
-                        Log.d(TAG, "TESTE: inicou serviço");
-                    }
+                    MainActivity.this.startService(serviceIntent);
+                    Log.d(TAG, "TESTE: inicou serviço");
                 } else {
                     Log.d(TAG, "TESTE: permissões não concedidas ou senha vazia");
                 }
             }
         });
-
     }
 
     @Override

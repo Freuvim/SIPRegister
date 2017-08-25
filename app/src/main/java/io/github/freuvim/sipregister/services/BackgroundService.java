@@ -100,7 +100,7 @@ public class BackgroundService extends Service {
                 e.printStackTrace();
             }
         }
-        Log.d(TAG, "makeDir");
+        Log.d(TAG, "TESTE: makeDir");
     }
 
     private void isConnectedToInternet() {
