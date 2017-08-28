@@ -6,12 +6,14 @@ import android.content.Intent;
 
 import io.github.freuvim.sipregister.services.BackgroundService;
 
-
-public class BootCompletedIntentReceiver extends BroadcastReceiver {
+public class BroadcastReceiverOnBootCompleted extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-            Intent serviceIntent = new Intent(Intent.ACTION_MAIN);
-            serviceIntent.setClass(context, BackgroundService.class);
+        if (intent.getAction().equalsIgnoreCase(Intent.ACTION_BOOT_COMPLETED)) {
+            Intent serviceIntent = new Intent(context, BackgroundService.class);
+            context.stopService(serviceIntent);
             context.startService(serviceIntent);
+
+        }
     }
 }

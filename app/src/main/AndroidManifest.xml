@@ -3,18 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="io.github.freuvim.sipregister">
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity android:name="io.github.freuvim.sipregister.activitys.MainActivity">
@@ -23,8 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <receiver android:name="io.github.freuvim.sipregister.receivers.BootCompletedIntentReceiver"
+        <receiver
+            android:name="io.github.freuvim.sipregister.receivers.BroadcastReceiverOnBootCompleted"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -41,5 +39,4 @@
         </receiver>
         <service android:name="io.github.freuvim.sipregister.services.BackgroundService" />
     </application>
-
 </manifest>

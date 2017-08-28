@@ -20,7 +20,7 @@ public class RetrofitBuilder {
 
         this.retrofit = new Retrofit.Builder()
                 .addConverterFactory(JacksonConverterFactory.create())
-                .baseUrl("http://192.168.1.101:3000/api/")
+                .baseUrl("http://sip.atenainformatica.com.br/api/")
                 .client(client.build())
                 .build();
     }

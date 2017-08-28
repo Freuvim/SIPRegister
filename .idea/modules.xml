@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SIPRegister.iml" filepath="$PROJECT_DIR$/SIPRegister.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/commons-net-3.6/commons-net-3.6.iml" filepath="$PROJECT_DIR$/commons-net-3.6/commons-net-3.6.iml" />
     </modules>
   </component>
 </project>
