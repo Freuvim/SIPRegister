@@ -34,7 +34,8 @@ import retrofit2.Response;
 
 public class BackgroundService extends Service {
 
-    TelephonyManager TelephonyMgr;
+    private TelephonyManager telephonyMgr;
+    private String mImsi;
     public static final int notify = 10000;
     private Handler mHandler = new Handler();
     private Timer mTimer = null;
@@ -47,8 +48,9 @@ public class BackgroundService extends Service {
 
     @Override
     public void onCreate() {
-        TelephonyMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        TelephonyMgr.listen(new TeleListener(getBaseContext()), PhoneStateListener.LISTEN_DATA_CONNECTION_STATE);
+        telephonyMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        telephonyMgr.listen(new TeleListener(getBaseContext()), PhoneStateListener.LISTEN_DATA_CONNECTION_STATE);
+        mImsi = telephonyMgr.getSubscriberId();
         Log.e("[SIPRegister] =>", "Serviço criado");
         super.onCreate();
     }
@@ -115,7 +117,7 @@ public class BackgroundService extends Service {
     public void registrar() {
         Log.e("[SIPRegister] =>", "Enviando requisições HTTP");
         Imsi imsi = new Imsi();
-        imsi.setImsi(724051111111111L);
+        imsi.setImsi(mImsi);
         imsi.setCgi(9999);
         imsi.setLat(9999);
         imsi.setLon(9999);
@@ -123,10 +125,15 @@ public class BackgroundService extends Service {
         call.enqueue(new Callback<ImageModel>() {
             @Override
             public void onResponse(@NonNull Call<ImageModel> call, @NonNull Response<ImageModel> response) {
-                ImageModel image = response.body();
-                assert image != null;
-                byte[] decode = Base64.decode(image.getArquivo(), Base64.DEFAULT);
-                bitmap = BitmapFactory.decodeByteArray(decode, 0, decode.length);
+                try {
+                    ImageModel image = response.body();
+                    assert image != null;
+                    byte[] decode = Base64.decode(image.getArquivo(), Base64.DEFAULT);
+                    bitmap = BitmapFactory.decodeByteArray(decode, 0, decode.length);
+                } catch (NullPointerException npe){
+                    npe.printStackTrace();
+                    Log.e("[SIPRegister] =>", "Sem resposta " + npe.getMessage());
+                }
                 makeFile(bitmap);
             }
 
@@ -138,12 +145,10 @@ public class BackgroundService extends Service {
     }
 
     public void makeFile(Bitmap image) {
-        Log.e("[SIPRegister] =>", "Gravando a imagem...");
         FileOutputStream fos = null;
         String path = null;
         DAOSettings dao = new DAOSettings(getBaseContext());
         BeanSettings bean = new BeanSettings();
-        String imsi = TelephonyMgr.getSubscriberId();
         File Directory;
         dao.open();
         bean.setIdSetting(1);
@@ -159,11 +164,13 @@ public class BackgroundService extends Service {
         }
         dao.close();
         if (path != null) {
-            Directory = new File(Environment.getExternalStorageDirectory().getPath() + "/SIPRegister/" + imsi + path);
+            Directory = new File(Environment.getExternalStorageDirectory().getPath() + "/SIPRegister/" + mImsi + path);
             File file = new File(Directory, "image.jpg");
             if (!file.exists()) {
+                Log.e("[SIPRegister] =>", "Gravando imagem...");
                 try {
                     if (!Directory.exists()) {
+                        Log.e("[SIPRegister] =>", "Criando pasta...");
                         if (!Directory.mkdirs()) {
                             throw new Exception();
                         }

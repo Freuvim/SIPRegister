@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermission.On
         btServico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                easyPermission.requestPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                easyPermission.requestPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE);
                 if (permissions) {
                     MainActivity.this.startService(serviceIntent);
                     Log.e("[SIPRegister] =>", "Serviço iniciado");
@@ -47,6 +47,11 @@ public class MainActivity extends AppCompatActivity implements EasyPermission.On
     @Override
     public void onPermissionResult(String permission, boolean isGranted) {
         switch (permission) {
+            case Manifest.permission.READ_PHONE_STATE:
+                if (isGranted) {
+                    easyPermission.requestPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                }
+                break;
             case Manifest.permission.WRITE_EXTERNAL_STORAGE:
                 if (isGranted) {
                     permissions = true;

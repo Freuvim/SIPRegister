@@ -4,16 +4,16 @@ import java.io.Serializable;
 
 public class Imsi implements Serializable{
 
-    private long imsi;
+    private String imsi;
     private int lat;
     private int lon;
     private int cgi;
 
-    public long getImsi() {
+    public String getImsi() {
         return imsi;
     }
 
-    public void setImsi(long imsi) {
+    public void setImsi(String imsi) {
         this.imsi = imsi;
     }
 
