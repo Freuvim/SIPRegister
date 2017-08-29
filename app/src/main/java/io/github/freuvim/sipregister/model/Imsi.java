@@ -7,7 +7,15 @@ public class Imsi implements Serializable{
     private String imsi;
     private int lat;
     private int lon;
-    private int cgi;
+    private int lac;
+
+    public Imsi() {}
+    public Imsi(String imsi, int lat, int lon, int lac) {
+        this.imsi = imsi;
+        this.lat = lat;
+        this.lon = lon;
+        this.lac = lac;
+    }
 
     public String getImsi() {
         return imsi;
@@ -33,11 +41,11 @@ public class Imsi implements Serializable{
         this.lon = lon;
     }
 
-    public int getCgi() {
-        return cgi;
+    public int getLac() {
+        return lac;
     }
 
-    public void setCgi(int cgi) {
-        this.cgi = cgi;
+    public void setLac(int lac) {
+        this.lac = lac;
     }
 }
