@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import io.github.freuvim.sipregister.HttpCodeType;
 import io.github.freuvim.sipregister.database.BeanSettings;
 import io.github.freuvim.sipregister.database.DAOSettings;
 import io.github.freuvim.sipregister.listeners.TeleListener;
@@ -116,25 +117,18 @@ public class BackgroundService extends Service {
 
     public void registrar() {
         Log.e("[SIPRegister] =>", "Enviando requisições HTTP");
-        Imsi imsi = new Imsi();
-        imsi.setImsi(mImsi);
-        imsi.setCgi(9999);
-        imsi.setLat(9999);
-        imsi.setLon(9999);
-        Call<ImageModel> call = new RetrofitBuilder().getImageService().enviarRegistro(imsi);
+        Call<ImageModel> call = new RetrofitBuilder().getImageService().enviarRegistro(new Imsi("724061111111111", 9999, 9999, 9999));
         call.enqueue(new Callback<ImageModel>() {
             @Override
             public void onResponse(@NonNull Call<ImageModel> call, @NonNull Response<ImageModel> response) {
-                try {
+                if (response.code() == HttpCodeType.OK.getCode()) {
                     ImageModel image = response.body();
                     assert image != null;
-                    byte[] decode = Base64.decode(image.getArquivo(), Base64.DEFAULT);
+                    byte[] decode = Base64.decode(image.getBase64(), Base64.DEFAULT);
                     bitmap = BitmapFactory.decodeByteArray(decode, 0, decode.length);
-                } catch (NullPointerException npe){
-                    npe.printStackTrace();
-                    Log.e("[SIPRegister] =>", "Sem resposta " + npe.getMessage());
+                    makeFile(bitmap);
                 }
-                makeFile(bitmap);
+                // Implementar o resto das validações HTTP...
             }
 
             @Override
