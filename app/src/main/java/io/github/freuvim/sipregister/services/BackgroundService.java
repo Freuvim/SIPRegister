@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import io.github.freuvim.sipregister.HttpCodeType;
+import io.github.freuvim.sipregister.type.HttpCodeType;
 import io.github.freuvim.sipregister.database.BeanSettings;
 import io.github.freuvim.sipregister.database.DAOSettings;
 import io.github.freuvim.sipregister.listeners.TeleListener;
