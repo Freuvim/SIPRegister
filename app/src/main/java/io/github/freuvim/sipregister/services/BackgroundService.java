@@ -35,7 +35,6 @@ import retrofit2.Response;
 
 public class BackgroundService extends Service {
 
-    private TelephonyManager telephonyMgr;
     private String mImsi;
     public static final int notify = 10000;
     private Handler mHandler = new Handler();
@@ -49,7 +48,7 @@ public class BackgroundService extends Service {
 
     @Override
     public void onCreate() {
-        telephonyMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        TelephonyManager telephonyMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         telephonyMgr.listen(new TeleListener(getBaseContext()), PhoneStateListener.LISTEN_DATA_CONNECTION_STATE);
         mImsi = telephonyMgr.getSubscriberId();
         Log.e("[SIPRegister] =>", "Serviço criado");
@@ -117,7 +116,7 @@ public class BackgroundService extends Service {
 
     public void registrar() {
         Log.e("[SIPRegister] =>", "Enviando requisições HTTP");
-        Call<ImageModel> call = new RetrofitBuilder().getImageService().enviarRegistro(new Imsi("724061111111111", 9999, 9999, 9999));
+        Call<ImageModel> call = new RetrofitBuilder().getImageService().enviarRegistro(new Imsi(mImsi, 9999, 9999, 9999));
         call.enqueue(new Callback<ImageModel>() {
             @Override
             public void onResponse(@NonNull Call<ImageModel> call, @NonNull Response<ImageModel> response) {
